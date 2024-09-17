@@ -1,6 +1,7 @@
 "use client"
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Suspense } from "react";
 import { PokemonCard } from "./pokemon-card";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -90,7 +91,9 @@ export  function PokemonLayout({ pokemonList:initialPokemonList, next:initialNex
             <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
                 {filteredPokemonList.map((pokemon: any) => {
                     return (
-                        <PokemonCard name={pokemon} key={pokemon + "Card"} />
+                        <Suspense fallback={<p>Loading ... Please wait 😗 </p>}>
+                            <PokemonCard name={pokemon} key={pokemon + "Card"} />
+                        </Suspense>
                     )
                 })}
             </div>
