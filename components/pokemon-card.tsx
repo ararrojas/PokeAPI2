@@ -1,10 +1,10 @@
 import Link from "next/link"
-
 interface PokemonCardProps {
     name: string
+    next: string | null
 }
 
-export function PokemonCard({ name } : PokemonCardProps ){
+export function PokemonCard({ name, next } : PokemonCardProps ){
     return (
         <Link
             href={"/details/" + `${name}`} 

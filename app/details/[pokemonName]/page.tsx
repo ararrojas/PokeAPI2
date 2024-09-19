@@ -1,6 +1,5 @@
-import PokemonImage from "@/components/pokemon-image";
+import PokemonImage from "./pokemon-image";
 import { Progress } from "@/components/ui/progress";
-import { getPokemonList } from "@/lib/pokemonAPI";
 
 interface PokemonProps {
     name: string;
@@ -23,12 +22,60 @@ interface PokemonProps {
     };
 }
 
+interface Pokemon {
+    name: string;
+    url: string;
+}
+
 export default async function PokemonPage({ params } : { params : { pokemonName:string }}) {
 
     const { pokemonName } = params;
-    const { pokemon } = await getPokemonList();
 
-    const pokemonObject = pokemon.find(p => p.name === pokemonName);
+    let next: string | null = "https://pokeapi.co/api/v2/pokemon?limit=20";
+
+    async function getAllPokemons() {
+        let allPokemons: Pokemon[] = [];
+        let nextURL: string | null = next;
+        const limit = 1000;
+        let fetchedPokes = 0;
+        
+        while (nextURL && fetchedPokes < limit) {
+            const res = await fetch(nextURL);
+            const data = await res.json();
+
+            const rest = limit - fetchedPokes;
+            const toAdd = data.results.slice(0, rest);
+            
+            allPokemons = allPokemons.concat(toAdd);
+            fetchedPokes = allPokemons.length;
+
+            if (fetchedPokes >= limit){
+                break;
+            }
+
+            nextURL = data.next;
+        }
+        
+        const pokemonDetailsPromises = allPokemons.map(async (pokemon) => {
+            const detailsRes = await fetch(pokemon.url);
+            const details = await detailsRes.json();
+            return {
+                name: pokemon.name,
+                details,
+            };
+        });
+
+        const pokemonsWithDetails = await Promise.all(pokemonDetailsPromises);
+
+        return pokemonsWithDetails;
+    }
+    
+
+    const pokemons = await getAllPokemons();
+    //console.log(pokemon);
+
+    const pokemonObject = pokemons.find(p => p.name === pokemonName);
+
 
     if (!pokemonObject) {
         return <div>Pokemon not found</div>;

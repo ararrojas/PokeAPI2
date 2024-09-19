@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="dark">
-        <main className="flex min-h-screen flex-col items-center p-24 m-2">
+        <main className="flex min-h-screen flex-col items-center p-12 m-2">
             <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
                 <Link href="/"><h2 className="text-2xl text-bold"> PokeAPI</h2></Link>
             </div>
