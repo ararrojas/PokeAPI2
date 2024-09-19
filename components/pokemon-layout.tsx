@@ -85,17 +85,21 @@ export  function PokemonLayout({ pokemonList:initialPokemonList, next:initialNex
                 </div>
             </div>
             </div>
-                <h3 className="text-3xl pt-12 pb-6 text-center">Pokemon Collection</h3>
+            <h3 className="text-3xl pt-12 pb-6 text-center">Pokemon Collection</h3>
             
 
-            <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-                {filteredPokemonList.map((pokemon: any) => {
+            <div className="mb-2 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
+                {filteredPokemonList.length > 0 ? (
+                    filteredPokemonList.map((pokemon: any) => {
                     return (
                         <Suspense fallback={<p>Loading ... Please wait 😗 </p>}>
                             <PokemonCard name={pokemon} key={pokemon + "Card"} />
                         </Suspense>
-                    )
-                })}
+                    );
+                })
+                ) : (
+                    <p className="text-xl text-red-600">Pokemon not found </p>
+                )}
             </div>
             { next && (
                 <LoadMoreButton onLoadMore={loadMorePokemons} loading={loading} />

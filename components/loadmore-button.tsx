@@ -7,7 +7,7 @@ interface LoadMoreButtonProps {
 
 export function LoadMoreButton({ onLoadMore, loading }: LoadMoreButtonProps) {
     return (
-        <div className="m-4 text-3xl">
+        <div className="m-2 text-3xl">
             <Button onClick={onLoadMore} disabled={loading} className='bg-yellow-300 animation-blink hover:bg-green-400'>
                 {loading ? 'Loading...' : 'Load more!'}
             </Button>
