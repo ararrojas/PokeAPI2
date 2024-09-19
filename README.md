@@ -2,7 +2,7 @@
 
 This project is a **Pokémon Explorer** built with [Next.js](https://nextjs.org), styled with a Pokémon theme, and powered by the [PokéAPI](https://pokeapi.co). The app allows users to search for their favorite Pokémon, explore detailed information, and dynamically load more Pokémon with ease.
 
-![Screenshot of the Pokémon Explorer](https://raw.githubusercontent.com/ararrojas/PokeAPI2/refs/heads/main/public/screen.png)
+![Screenshot of the Pokémon Explorer](https://raw.githubusercontent.com/ararrojas/pokemon-explorer/refs/heads/main/public/newscreen.png)
 
 ## Getting Started
 
